@@ -1,10 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extrahead %} 
+{% block head %}
 <title>Detalle Producto</title>
-{% endblock extrahead%}
+<link rel="stylesheet" href="{% static '/css/detail.css' %}">
+{% endblock head%}
 
 {% block content %}
-<h1> Detalle</h1>
+
+<div class="producto-detalle">
+    <h2>Detalle</h2>
+    {% if productos.nuevo %}
+    <div class="etiqueta-nuevo">¡Nuevo!</div>
+    {% endif %}
+    <img src="{{ productos.imagen.url }}" alt="{{ productos.nombre }}">
+    <h1>{{ productos.nombre }}</h1>
+    <p>{{ productos.descripcion }}</p>
+    <p class="marca-stock">
+        <strong>Marca:</strong> {{ productos.marca }} <br>
+        <strong>Stock disponible:</strong> {{ productos.stock }}
+    </p>
+    <p class="precio">
+        <span class="precio-original">${{ productos.precio_original }}</span>
+        ${{ productos.precio_descuento }}
+    </p>
+    <a href="{% url 'index' %}" class="volver">Back</a>
+</div>
 {% endblock content%}

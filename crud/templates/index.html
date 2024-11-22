@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extrahead %} 
+{% block head %}
 <title>Inicio</title>
-{% endblock extrahead%}
+<link rel="stylesheet" href="{% static '/css/detalleIndex.css' %}">
+{% endblock head%}
 
 {% block content %}
-<h1> Menu Principal</h1>
+<h1>Productos en Oferta</h1>
+<div class="grid-container">
+    {% for producto in productos %}
+    <div class="producto-card">
+        {% if producto.nuevo %}
+        <div class="etiqueta-nuevo">Nuevo!</div>
+        {% endif %}
+        <img src="{{ producto.imagen.url}}" alt="Sin Imágen">
+        <h2>{{ producto.nombre }}</h2>
+        <p class="precio-original">${{producto.precio_original }}</p>
+        <p class="precio-descuento">${{producto.precio_descuento }}</p>
+        <a class="details"  href="{% url 'detalleProducto' producto.id %}">Detalles</a>
+    </div>
+    {% endfor %}
+</div>
 {% endblock content%}
